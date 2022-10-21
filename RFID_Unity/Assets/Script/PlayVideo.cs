@@ -1,15 +1,22 @@
 ﻿using UnityEngine;
 using UnityEngine.Video;
 
+
 public class PlayVideo : MonoBehaviour
 {
+    #region Fields 
+
     public  VideoClip[] videosClip;
     private VideoPlayer videoPlayer;
-    private RFIDThread readerRFID;
-    
+    private RFIDThread  readerRFID;
+
+    #endregion
+
+    #region Unity Methods
+
     void Start()
     {
-        readerRFID = this.GetComponent<RFIDThread>();
+        readerRFID  = this.GetComponent<RFIDThread>();
         videoPlayer = this.GetComponent<VideoPlayer>();
     }
 
@@ -29,4 +36,6 @@ public class PlayVideo : MonoBehaviour
                 break;
         }
     }
+
+    #endregion
 }

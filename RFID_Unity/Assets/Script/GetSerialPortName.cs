@@ -46,5 +46,4 @@ public class GetSerialPortName
 
         return "COM3";
     }
-
 }

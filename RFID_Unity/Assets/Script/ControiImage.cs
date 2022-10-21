@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class ControiImage : MonoBehaviour
 {
+    #region Fields
+
     public  AudioClip[]     audioClip;
     public  GameObject      guitar;
     public  GameObject      star;
@@ -12,10 +14,14 @@ public class ControiImage : MonoBehaviour
     private AudioSource     audioSource;
     private RFIDThread      readerRFID;
 
+    #endregion
+
+    #region Unity Methods
+
     void Start()
     {
         audioSource = this.GetComponent<AudioSource>();
-        readerRFID = this.GetComponent<RFIDThread>();
+        readerRFID  = this.GetComponent<RFIDThread>();
     }
 
     void Update()
@@ -41,4 +47,6 @@ public class ControiImage : MonoBehaviour
                 break;
         }
     }
+
+    #endregion
 }
