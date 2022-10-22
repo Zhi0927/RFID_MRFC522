@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO.Ports;
 using Microsoft.Win32;
 
 public class GetSerialPortName
 {
+    #region Methods 
+
     public static string AutoDetectArduinoPort()
     {
         List<string> comports = new List<string>();
@@ -46,4 +47,6 @@ public class GetSerialPortName
 
         return "COM3";
     }
+
+    #endregion
 }

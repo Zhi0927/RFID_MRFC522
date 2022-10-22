@@ -7,25 +7,38 @@ public class RFIDThread : MonoBehaviour
 {
     #region Fields
 
-    private SerialPort	m_arduinSerial;
-	private Thread		m_arduinoThread;
-	private string		m_uid = string.Empty;
+    private static  RFIDThread  m_Instance          = null;
+    private SerialPort	        m_arduinSerial      = null;
+	private Thread		        m_arduinoThread     = null;
+	private string		        m_uid               = string.Empty;
+
+    [SerializeField]
+    private string              PortName            = "COM3";
+    [SerializeField]
+    private int                 BaudRate            = 9600;
 
     #endregion
 
     #region Properties
 
-    public string UID { get { return m_uid; } }
+    public static RFIDThread Instance   => m_Instance;
+    public string UID                   => m_uid; 
 
     #endregion
 
     #region Unity Methods
 
-    private void Start()
+    private void Awake()
 	{
-        var portname = GetSerialPortName.AutoDetectArduinoPort();
-        m_arduinSerial = new SerialPort(portname, 9600);
-        //m_arduinSerial = new SerialPort("COM4", 9600);
+        if (m_Instance)
+            Destroy(gameObject);
+        else
+        {
+            m_Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+
+        m_arduinSerial = new SerialPort(PortName, BaudRate);
 
         m_arduinSerial.ReadTimeout = 500;
 		try
@@ -40,20 +53,6 @@ public class RFIDThread : MonoBehaviour
 			Debug.LogWarning(e.Message);
 		}
 	}
-
-    private void Update()
-    {
-        if (UID.Contains("13812013137"))
-        {
-            Debug.Log($"Access Granted! UID: {UID}");
-        }
-
-
-        if (UID.Contains("169181236151"))
-        {
-            Debug.Log($"Access Granted! UID: {UID}");
-        }
-    }
 
     private void OnApplicationQuit()
     {
@@ -99,6 +98,24 @@ public class RFIDThread : MonoBehaviour
         {
             Debug.LogWarning(e.Message);
         }
+    }
+
+    #endregion
+
+    #region Test via Unity Methods
+
+    private void Update()
+    {
+        //if (UID.Contains("1971014946"))
+        //{
+        //    Debug.Log($"Access Granted! UID: {UID}");
+        //}
+
+
+        //if (UID.Contains("24124714657"))
+        //{
+        //    Debug.Log($"Access Granted! UID: {UID}");
+        //}
     }
 
     #endregion

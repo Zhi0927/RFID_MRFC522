@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class ControiImage : MonoBehaviour
 {
@@ -12,7 +9,6 @@ public class ControiImage : MonoBehaviour
     public  GameObject      star;
 
     private AudioSource     audioSource;
-    private RFIDThread      readerRFID;
 
     #endregion
 
@@ -21,14 +17,14 @@ public class ControiImage : MonoBehaviour
     void Start()
     {
         audioSource = this.GetComponent<AudioSource>();
-        readerRFID  = this.GetComponent<RFIDThread>();
     }
 
     void Update()
     {
-        switch (readerRFID.UID)
+        string result = RFIDThread.Instance.UID;
+        switch (result)
         {
-            case var a when readerRFID.UID.Contains("13812013137"):
+            case var a when result.Contains("1971014946"):
                 guitar.SetActive(true);
                 star.SetActive(false);
                 audioSource.Stop();
@@ -36,7 +32,7 @@ public class ControiImage : MonoBehaviour
                 audioSource.Play();
                 break;
 
-            case var b when readerRFID.UID.Contains("169181236151"):
+            case var b when result.Contains("24124714657"):
                 guitar.SetActive(false);
                 star.SetActive(true);
                 audioSource.Stop();
